@@ -16,7 +16,18 @@ export default async function RootLayout({
 }: Readonly<{
 	children: React.ReactNode
 }>) {
-	let data: Global
+	let data = null
+
+	if (!process.env.NEXT_PUBLIC_BASE_URL) {
+		console.error('NEXT_PUBLIC_BASE_URL is not defined')
+		return (
+			<div>
+				<h1>Error</h1>
+				<p>Server configuration error. Please contact the administrator.</p>
+			</div>
+		)
+	}
+
 	try {
 		const response = await fetch(
 			`${process.env.NEXT_PUBLIC_BASE_URL}/api/graphql`,
@@ -53,23 +64,23 @@ export default async function RootLayout({
 	} catch (error) {
 		console.error('Error fetching GraphQL data:', error)
 		return (
-			<html lang='en'>
-				<body className={`${inter.className} antialiased`}>
-					<div className='ml-[63px] overflow-hidden min-h-screen'>
-						Error fetching GraphQL data
-					</div>
-				</body>
-			</html>
+			<div>
+				<h1>Error</h1>
+				<p>Failed to load pages. Please try again later.</p>
+			</div>
 		)
 	}
+
 	return (
 		<html lang='en'>
 			<body className={`${inter.className} antialiased`}>
-				{/* @ts-expect-error-next-line */}
 				{data?.Sidebar && <Sidebar {...data.Sidebar} />}
+				{console.log('data here' + data.Sidebar)}
 				<div className='ml-[63px] overflow-hidden min-h-screen'>
-					{/* @ts-expect-error-next-line */}
 					{data?.Header && <Navbar {...data.Header} />}
+					{!data && (
+						<div className='text-red-600'>Error fetching GraphQL data</div>
+					)}
 					{children}
 					<SpeedInsights />
 				</div>
