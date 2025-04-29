@@ -14,6 +14,11 @@ const nextConfig: NextConfig = {
 				hostname: 'cdn.sanity.io',
 				pathname: '/**',
 			},
+			{
+				protocol: 'http',
+				hostname: 'localhost',
+				pathname: '/**',
+			},
 		],
 	},
 }

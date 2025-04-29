@@ -1,39 +1,51 @@
-export const CASE_STUDIES_QUERY = `*[_type == "post"] | order(_createdAt desc)
-{
-  _id,
-  title,
-  slug,
-  body,
-  image {
-    asset->{
-      _id,
-      url,
-      metadata {
-        dimensions {
-          width,
-          height
+export const PAGE_QUERY = `
+  query {
+  Pages {
+    docs {
+      id
+      title
+      slug
+      layout {
+        __typename
+        ... on Hero {
+          heading
+          subheading
+          image {
+            url
+            alt
+          }
+          button {
+            label
+            link
+          }
         }
       }
     }
   }
-}`
-
-export const CURRENT_STUDY_QUERY = `*[_type == "post" && slug.current == $slug][0]
-{
-  _id,
-  title,
-  slug,
-  body,
-  image {
-    asset->{
-      _id,
-      url,
-      metadata {
-        dimensions {
-          width,
-          height
+}
+`
+export const GLOBAL_QUERY = `
+  query {
+    Header {
+      logo {
+        url
+      }
+      navigationItems {
+        label
+        link
+      }
+    }
+    Sidebar {
+      logo {
+        url
+        alt
+      }
+      socialIcons {
+        image {
+          url
+          alt
         }
       }
     }
-  }
-}`
+}
+`

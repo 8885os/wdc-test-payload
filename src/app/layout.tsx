@@ -1,9 +1,10 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { inter } from './ui/fonts'
-import { Navbar } from '../components/Navbar'
-import Sidebar from '../components/Sidebar'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { GLOBAL_QUERY } from '@/lib/utils/queries'
+import Sidebar from '@/components/Sidebar'
+import { Navbar } from '@/components/Navbar'
 
 export const metadata: Metadata = {
 	title: 'Create Next App',
@@ -15,12 +16,60 @@ export default async function RootLayout({
 }: Readonly<{
 	children: React.ReactNode
 }>) {
+	let data: Global
+	try {
+		const response = await fetch(
+			`${process.env.NEXT_PUBLIC_BASE_URL}/api/graphql`,
+			{
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					// Uncomment if authentication is needed:
+					// 'Authorization': `Bearer ${process.env.API_TOKEN}`,
+				},
+				body: JSON.stringify({
+					query: GLOBAL_QUERY,
+				}),
+				// Optional: Disable caching for fresh data
+				// cache: 'no-store',
+				// Or use revalidation for ISR
+				// next: { revalidate: 60 }, // Revalidate every 60 seconds
+			}
+		)
+
+		if (!response.ok) {
+			throw new Error(`HTTP error! Status: ${response.status}`)
+		}
+
+		const result = await response.json()
+
+		if (result.errors) {
+			throw new Error(`GraphQL error: ${JSON.stringify(result.errors)}`)
+		}
+
+		data = result.data
+
+		console.log(data)
+	} catch (error) {
+		console.error('Error fetching GraphQL data:', error)
+		return (
+			<html lang='en'>
+				<body className={`${inter.className} antialiased`}>
+					<div className='ml-[63px] overflow-hidden min-h-screen'>
+						Error fetching GraphQL data
+					</div>
+				</body>
+			</html>
+		)
+	}
 	return (
 		<html lang='en'>
 			<body className={`${inter.className} antialiased`}>
-				<Sidebar />
+				{/* @ts-expect-error-next-line */}
+				{data?.Sidebar && <Sidebar {...data.Sidebar} />}
 				<div className='ml-[63px] overflow-hidden min-h-screen'>
-					<Navbar />
+					{/* @ts-expect-error-next-line */}
+					{data?.Header && <Navbar {...data.Header} />}
 					{children}
 					<SpeedInsights />
 				</div>
