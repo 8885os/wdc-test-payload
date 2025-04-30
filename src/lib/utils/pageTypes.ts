@@ -13,21 +13,31 @@ export interface Page {
 	layout: HeroTypes[]
 }
 
-/* export interface HeaderTypes {
+export interface HeaderType {
 	logo?: { url: string; alt: string }
-	navigationItems?: { label: string; link: string }[]
+	navigationItems: { label: string; link: string }[]
 }
 
-export interface SidebarTypes {
+export interface SidebarType {
 	logo: {
 		url: string
 		alt: string
 	}
-	socialIcons: {
-		image: {
-			alt: string
-			url: string
-		}
-	}
+	socialIcons: [
+		{
+			image: {
+				alt: string
+				url: string
+			}
+			link: string
+		},
+	]
+}
 
-} */
+export interface iconType {
+	image: {
+		alt: string
+		url: string
+	}
+	link: string
+}

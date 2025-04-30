@@ -4,8 +4,9 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import '../app/animations.css'
+import { HeaderType } from '@/lib/utils/pageTypes'
 
-export const Navbar = () => {
+export const Navbar = ({ ...data }: HeaderType) => {
 	const [isOpen, setIsOpen] = useState(false)
 	const [hasMounted, setHasMounted] = useState(false)
 	const [isClosing, setIsClosing] = useState(false)
@@ -41,21 +42,14 @@ export const Navbar = () => {
 						className='close-icon'
 					/>
 				</div>
-				<Link
-					href='/animations'
-					className='text-white h-6 mt-0 pl-[13px] pr-[13px] no-underline hover:text-[#aab8b3] rounded-none visited:#aab8b3'>
-					Animations
-				</Link>
-				<Link
-					href='/case-studies'
-					className='text-white h-6 mt-0 pl-[13px] pr-[13px] no-underline hover:text-[#aab8b3] rounded-none visited:#aab8b3'>
-					Case Studies
-				</Link>
-				<Link
-					href='/contact'
-					className='text-white h-6 mt-0 pl-[13px] pr-[13px] no-underline hover:text-[#aab8b3] rounded-none visited:#aab8b3'>
-					Contact Us
-				</Link>
+				{data.navigationItems.map((item) => (
+					<Link
+						key={item.label}
+						href={item.link}
+						className='text-white h-6 mt-0 pl-[13px] pr-[13px] no-underline hover:text-[#aab8b3] rounded-none visited:#aab8b3'>
+						{item.label}
+					</Link>
+				))}
 				<div className='sm:ml-10'>
 					<form action='/search' className='items-center mb-0 flex'>
 						<input

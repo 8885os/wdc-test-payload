@@ -45,6 +45,7 @@ export const GLOBAL_QUERY = `
           url
           alt
         }
+          link
       }
     }
 }

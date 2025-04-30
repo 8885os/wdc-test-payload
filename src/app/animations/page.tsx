@@ -1,4 +1,3 @@
-import ImageSlider from '@/components/ImageSlider'
 import React from 'react'
 
 export default function page() {
@@ -12,7 +11,6 @@ export default function page() {
 				</div>
 			</div>
 			<h2 className='mb-20'>2. Slider Animation</h2>
-			<ImageSlider />
 		</div>
 	)
 }

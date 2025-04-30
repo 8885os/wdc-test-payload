@@ -19,7 +19,13 @@ const nextConfig: NextConfig = {
 				hostname: 'localhost',
 				pathname: '/**',
 			},
+			{
+				protocol: 'https',
+				hostname: 'localhost',
+				pathname: '/**',
+			},
 		],
+		domains: ['localhost'],
 	},
 }
 

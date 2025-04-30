@@ -1,8 +1,9 @@
+import { iconType, SidebarType } from '@/lib/utils/pageTypes'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
-const Sidebar = ({ ...data }) => {
+const Sidebar = ({ ...data }: SidebarType) => {
 	console.log(data)
 
 	return (
@@ -17,25 +18,26 @@ const Sidebar = ({ ...data }) => {
 						loading='eager'
 						width='20'
 						height='189'
-						alt='WDC Creative logo'
+						alt={data.logo.alt}
 						aria-label='WDC Creative logo'
 					/>
 				</Link>
 				<div className='flex-initial flex-col flex p-0 mt-auto self-center justify-between h-auto'>
-					{/* {data.socialIcons.map} TODO */}
-					<a
-						href='https://www.linkedin.com/company/wdc-creative'
-						target='_blank'
-						className='mb-2 flex'>
-						<Image
-							src='https://cdn.prod.website-files.com/5dfa188ac967d247add76ec4/674092ec13b6fd270fe5978d_5f733a2209119fdd843532b4_LINKEDIN_ICON_DARK.svg'
-							width='30'
-							height='30'
-							loading='eager'
-							alt='LinkedIn logo'
-							title='WDC Creative LinkedIn'
-						/>
-					</a>
+					{data.socialIcons.map((icon: iconType) => (
+						<a
+							href={`${icon.link}`}
+							target='_blank'
+							className='mb-2 flex '
+							key={icon.image.url}>
+							<Image
+								src={`${process.env.NEXT_PUBLIC_BASE_URL}${icon.image.url}`}
+								width={30}
+								height={30}
+								loading='eager'
+								alt={icon.image.alt}
+							/>
+						</a>
+					))}
 				</div>
 			</nav>
 		</div>
