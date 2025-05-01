@@ -1,3 +1,5 @@
+import { Block } from 'payload'
+import { JSX } from 'react'
 export interface HeroTypes {
 	type: 'Hero'
 	__typename: string
@@ -11,6 +13,10 @@ export interface Page {
 	title: string
 	slug: string
 	layout: HeroTypes[]
+
+	content: {
+		map(arg0: (block: any) => JSX.Element | null): import("react").ReactNode blocks: Block[] 
+}
 }
 
 export interface HeaderType {
@@ -40,4 +46,11 @@ export interface iconType {
 		url: string
 	}
 	link: string
+}
+
+export interface SecondaryHeroType {
+	slug: string
+	heading: string
+	image: { url: string; alt: string }
+	[key: string]: unknown // allows other props like _sanitized, admin, etc.
 }

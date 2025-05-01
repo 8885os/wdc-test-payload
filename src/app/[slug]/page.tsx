@@ -1,12 +1,75 @@
+import ImageGrid from '@/components/ImageGrid'
+import { Richtext } from '@/components/Richtext'
+import SecondaryHero from '@/components/SecondaryHero'
 import { Page } from '@/lib/utils/pageTypes'
-import { PAGE_QUERY } from '@/lib/utils/queries'
+import { WORK_QUERY } from '@/lib/utils/queries'
+import Image from 'next/image'
 import React from 'react'
+
 interface GraphQLResponse {
-	Pages: {
+	Works: {
 		docs: Page[]
 	}
 }
-export default async function CMSPage() {
+
+let count = 0
+
+function renderBlock(block: any) {
+	switch (block.__typename) {
+		case 'Hero':
+			return (
+				<section key={block.id || block._key}>
+					<SecondaryHero
+						slug={block.slug}
+						heading={block.heading}
+						image={block.image}
+						alt={block.alt}
+					/>
+				</section>
+			)
+
+		case 'RichText':
+			console.log(block)
+
+			return (
+				<section key={block.id || block._key}>
+					<Richtext data={block.content} />
+				</section>
+			)
+
+		case 'ImageGrid':
+			return (
+				<section key={block.id || block._key}>
+					<ImageGrid images={block.images} />
+				</section>
+			)
+		/*
+		case 'OtherProjects':
+			return (
+				<section key={block.id || block._key}>
+					<p>{block.info}</p>
+				</section>
+			)
+
+		case 'Contact':
+			return (
+				<section key={block.id || block._key}>
+					<p>{block.info}</p>
+				</section>
+			)
+ */
+		default:
+			return null
+	}
+}
+
+export default async function CMSPage({
+	params,
+}: {
+	params: { slug: string }
+}) {
+	const pageSlug = params.slug
+
 	if (!process.env.NEXT_PUBLIC_BASE_URL) {
 		console.error('NEXT_PUBLIC_BASE_URL is not defined')
 		return (
@@ -26,16 +89,9 @@ export default async function CMSPage() {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
-					// Uncomment if authentication is needed:
 					// 'Authorization': `Bearer ${process.env.API_TOKEN}`,
 				},
-				body: JSON.stringify({
-					query: PAGE_QUERY,
-				}),
-				// Optional: Disable caching for fresh data
-				// cache: 'no-store',
-				// Or use revalidation for ISR
-				// next: { revalidate: 60 }, // Revalidate every 60 seconds
+				body: JSON.stringify({ query: WORK_QUERY }),
 			}
 		)
 
@@ -50,37 +106,26 @@ export default async function CMSPage() {
 		}
 
 		data = result.data
-
-		console.log(data)
 	} catch (error) {
 		console.error('Error fetching GraphQL data:', error)
 		return (
 			<div>
 				<h1>Error</h1>
-				<p>Failed to load pages. Please try again later.</p>
+				<p>Failed to load page data. Please try again later.</p>
 			</div>
 		)
 	}
 
-	return (
-		<div>
-			{data?.Pages.docs.find((page) => page.slug === 'home') ? (
-				<div>
-					{data?.Pages.docs
-						.find((page) => page.slug === 'home')
-						?.layout?.map(
-							(layout, index) =>
-								layout.__typename === 'Hero' && (
-									<Hero key={index} layout={layout} />
-								)
-						)}
-				</div>
-			) : (
-				<div>
-					<h1>404</h1>
-					<p>Page not found</p>
-				</div>
-			)}
-		</div>
-	)
+	const currentPage = data?.Works.docs.find((doc) => doc.slug === pageSlug)
+
+	if (!currentPage) {
+		return (
+			<div>
+				<h1>404</h1>
+				<p>Page not found</p>
+			</div>
+		)
+	}
+
+	return <div>{currentPage.content.map((block) => renderBlock(block))}</div>
 }
