@@ -48,9 +48,14 @@ export interface iconType {
 	link: string
 }
 
-export interface SecondaryHeroType {
+export interface ImageHeroType {
 	slug: string
 	heading: string
 	image: { url: string; alt: string }
 	[key: string]: unknown // allows other props like _sanitized, admin, etc.
+}
+
+export interface SecondaryHeroTypes{
+	heading:string;
+
 }

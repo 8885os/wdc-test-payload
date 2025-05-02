@@ -1,17 +1,14 @@
-import { SecondaryHeroType } from '@/lib/utils/pageTypes'
-import Image from 'next/image'
+import { SecondaryHeroTypes } from '@/lib/utils/pageTypes'
 import React from 'react'
 
-export default function SecondaryHero({ image }: SecondaryHeroType) {
+export default function SecondaryHero({
+	block,
+}: {
+	block: SecondaryHeroTypes
+}) {
 	return (
-		<div>
-			<Image
-				className='w-full object-cover h-[70vh]'
-				src={process.env.NEXT_PUBLIC_BASE_URL + image.url}
-				alt={image.alt}
-				width={1000}
-				height={1000}
-			/>
+		<div className='w-full flex justify-center items-center pt-[2rem] pb-[2rem] bg-[#f1ebe7]'>
+			<h1>{block.heading}</h1>
 		</div>
 	)
 }

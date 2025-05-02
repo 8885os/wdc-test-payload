@@ -1,33 +1,36 @@
 export const PAGE_QUERY = `
-  query {
-  Pages {
-    docs {
-      id
-      title
-      slug
-      layout {
-        __typename
-        ... on Hero {
-          heading
-          subheading
-          image {
-            url
-            alt
+  query PageBySlug($slug: String) {
+    Pages(where: { slug: { equals: $slug } }) {
+      docs {
+        id
+        title
+        slug
+        layout {
+          __typename
+          ... on PageHero {
+            heading
+            subheading
+            image {
+              url
+              alt
+            }
+            button {
+              label
+              link
+            }
           }
-          button {
-            label
-            link
+          ... on SecondaryHero {
+            heading
           }
         }
       }
     }
   }
-}
 `
 
 export const WORK_QUERY = `
-  query {
-    Works {
+  query WorkBySlug($slug: String) {
+    Works(where: { slug: { equals: $slug } }) {
       docs {
         id
         title
