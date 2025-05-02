@@ -57,8 +57,6 @@ export default async function Home() {
 		}
 
 		data = result.data
-
-		console.log(data)
 	} catch (error) {
 		console.error('Error fetching GraphQL data:', error)
 		return (

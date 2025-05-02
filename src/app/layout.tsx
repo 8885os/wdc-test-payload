@@ -59,8 +59,6 @@ export default async function RootLayout({
 		}
 
 		data = result.data
-
-		console.log(data)
 	} catch (error) {
 		console.error('Error fetching GraphQL data:', error)
 		return (
@@ -75,7 +73,6 @@ export default async function RootLayout({
 		<html lang='en'>
 			<body className={`${inter.className} antialiased`}>
 				{data?.Sidebar && <Sidebar {...data.Sidebar} />}
-				{console.log('data here' + data.Sidebar)}
 				<div className='ml-[63px] overflow-hidden min-h-screen'>
 					{data?.Header && <Navbar {...data.Header} />}
 					{!data && (

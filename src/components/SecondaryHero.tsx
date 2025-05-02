@@ -5,7 +5,6 @@ import React from 'react'
 export default function SecondaryHero({ image }: SecondaryHeroType) {
 	return (
 		<div>
-			<>{console.log(image.url + 'here')}</>
 			<Image
 				className='w-full object-cover h-[70vh]'
 				src={process.env.NEXT_PUBLIC_BASE_URL + image.url}

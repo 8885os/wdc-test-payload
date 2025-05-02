@@ -12,8 +12,6 @@ interface GraphQLResponse {
 	}
 }
 
-let count = 0
-
 function renderBlock(block: any) {
 	switch (block.__typename) {
 		case 'Hero':
@@ -29,11 +27,14 @@ function renderBlock(block: any) {
 			)
 
 		case 'RichText':
-			console.log(block)
+			console.log(JSON.stringify(block.content) + 'block' + block)
 
 			return (
-				<section key={block.id || block._key}>
-					<Richtext data={block.content} />
+				<section key={block.id || block._key} className='w-full'>
+					<>{/* console.log('SDJFLDSKJAF;LKSFJD' + block.) */}</>
+					<div className='ml-auto w-[60%] mt-10 mb-10'>
+						<Richtext data={block.content} />
+					</div>
 				</section>
 			)
 
