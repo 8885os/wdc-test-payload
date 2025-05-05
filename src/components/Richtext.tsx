@@ -4,6 +4,7 @@ import React from 'react'
 
 type RichtextProps = {
 	data: SerializedEditorState
+	internalDocToHref?: (docId: string) => string // optional function to convert internal doc IDs to hrefs
 } & React.HTMLAttributes<HTMLDivElement>
 
 export const Richtext: React.FC<RichtextProps> = (props: RichtextProps) => {

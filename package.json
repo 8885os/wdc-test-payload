@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@payloadcms/live-preview-react": "^3.36.1",
     "@payloadcms/richtext-lexical": "^3.36.1",
     "@portabletext/react": "^3.2.1",
     "@sanity/client": "^6.28.4",
@@ -19,8 +20,7 @@
     "@vercel/speed-insights": "^1.2.0",
     "autoprefixer": "^10.4.21",
     "next": "15.2.4",
-    "next-sanity": "^9.9.9",
-    "payload": "^3.35.1",
+    "payload": "^3.36.1",
     "postcss": "^8.5.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

@@ -31,7 +31,7 @@ export default function WorkTabs({ works }: { works: any[] }) {
 					Interior design
 				</button>
 				<button
-					className={`border border-transparent bg-transparent border-r-black text-black ${
+					className={`border border-transparent bg-transparent text-black ${
 						activeTab === 'Web design'
 							? 'text-black font-semibold'
 							: 'text-gray-500'

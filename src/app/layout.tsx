@@ -1,7 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
 import { inter } from './ui/fonts'
-import { SpeedInsights } from '@vercel/speed-insights/next'
 import { GLOBAL_QUERY } from '@/lib/utils/queries'
 import Sidebar from '@/components/Sidebar'
 import { Navbar } from '@/components/Navbar'
@@ -79,7 +78,6 @@ export default async function RootLayout({
 						<div className='text-red-600'>Error fetching GraphQL data</div>
 					)}
 					{children}
-					<SpeedInsights />
 				</div>
 			</body>
 		</html>

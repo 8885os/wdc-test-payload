@@ -119,9 +119,7 @@ export const Navbar = ({ ...data }: HeaderType) => {
 								: 'animate-[var(--slide-right)]'
 						}`}>
 						<Link href='/'>Home</Link>
-						<Link href='/animations'>Animations</Link>
-						<Link href='/about'>About</Link>
-						<Link href='/case-studies'>Case studies</Link>
+						<Link href='/work'>Work</Link>
 						<Link href='/contact'>Contact</Link>
 					</div>
 				)}

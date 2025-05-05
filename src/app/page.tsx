@@ -72,10 +72,10 @@ export default async function Home() {
 	// Render the fetched data
 	return (
 		<div>
-			{data?.Pages.docs.find((page) => page.slug === 'home') ? (
+			{data?.Pages.docs.find((page) => page.slug === '') ? (
 				<div>
 					{data?.Pages.docs
-						.find((page) => page.slug === 'home')
+						.find((page) => page.slug === '')
 						?.layout?.map(
 							(layout, index) =>
 								layout.__typename === 'PageHero' && (

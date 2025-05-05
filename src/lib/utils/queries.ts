@@ -29,8 +29,8 @@ export const PAGE_QUERY = `
 `
 
 export const WORK_QUERY = `
-  query WorkBySlug($slug: String) {
-    Works(where: { slug: { equals: $slug } }) {
+  query WorkBySlug($slug: String, $draft: Boolean) {
+    Works(where: { slug: { equals: $slug } }, draft: $draft) {
       docs {
         id
         title
