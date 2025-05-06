@@ -24,8 +24,17 @@ const nextConfig: NextConfig = {
 				hostname: 'localhost',
 				pathname: '/**',
 			},
+			{
+				protocol: 'https',
+				hostname: 'payload-cms-dun.vercel.app',
+				pathname: '/**',
+			},
 		],
-		domains: ['localhost'],
+		domains: [
+			'localhost',
+			'payload-cms-dun.vercel.app',
+			'wdc-test-payload.vercel.app',
+		],
 	},
 }
 
