@@ -66,7 +66,7 @@ export default async function Home() {
 			</div>
 		)
 	}
-	const page = data?.Pages.docs.find((page) => page.slug === 'home')
+	//const page = data?.Pages.docs.find((page) => page.slug === 'home')
 
 	//{/* <Hero key={index} layout={layout} /> */}
 	// Render the fetched data

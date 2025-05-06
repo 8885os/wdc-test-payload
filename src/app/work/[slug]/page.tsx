@@ -13,11 +13,13 @@ interface GraphQLResponse {
 			slug: string
 			title: string
 			summary?: string
+			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			content: any[]
 		}[]
 	}
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function renderBlock(block: any, index: number) {
 	switch (block.__typename) {
 		case 'Hero':
@@ -65,6 +67,7 @@ export default async function CMSPage({
 	const { isEnabled } = await draftMode()
 	console.log(isEnabled, 'isEnabled')
 
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	let content: any[] | undefined
 
 	try {
@@ -87,7 +90,7 @@ export default async function CMSPage({
 			throw new Error(`GraphQL request failed: ${response.statusText}`)
 		}
 
-		const result: { data?: GraphQLResponse; errors?: any[] } =
+		const result: { data?: GraphQLResponse; errors?: unknown[] } =
 			await response.json()
 
 		if (result.errors) {

@@ -6,6 +6,7 @@ import { getPageBySlug } from '@/lib/utils/payload'
 import { PAGE_QUERY, WORK_QUERY } from '@/lib/utils/queries'
 import { Richtext } from '@/components/Richtext'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function renderBlock(block: any, works: any[], index: number) {
 	switch (block.__typename) {
 		case 'SecondaryHero':
@@ -33,12 +34,8 @@ function renderBlock(block: any, works: any[], index: number) {
 	}
 }
 
-export default async function CMSPage({
-	params,
-}: {
-	params: { slug: string }
-}) {
-	const { isEnabled } = draftMode()
+export default async function CMSPage() {
+	const { isEnabled } = await draftMode()
 	const pageSlug = await getPageBySlug('work', { draft: isEnabled })
 
 	if (!pageSlug) {
@@ -107,9 +104,12 @@ export default async function CMSPage({
 
 		return (
 			<div>
-				{page.layout.map((block: any, index: number) =>
-					renderBlock(block, works, index)
-				)}
+				{
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
+					page.layout.map((block: any, index: number) =>
+						renderBlock(block, works, index)
+					)
+				}
 			</div>
 		)
 	} catch (error) {
