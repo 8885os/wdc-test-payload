@@ -2,6 +2,7 @@
 import Image from 'next/image'
 import React from 'react'
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function WorkTabs({ works }: { works: any[] }) {
 	const [activeTab, setActiveTab] = React.useState('All')
 
@@ -45,6 +46,7 @@ export default function WorkTabs({ works }: { works: any[] }) {
 			<div className='grid grid-cols-2 gap-4'>
 				{filteredWorks.map((work) => {
 					const heroBlock = work.content.find(
+						// eslint-disable-next-line @typescript-eslint/no-explicit-any
 						(item: any) => item.__typename === 'Hero'
 					)
 

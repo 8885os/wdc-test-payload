@@ -4,8 +4,6 @@ import { PAGE_QUERY } from '@/lib/utils/queries'
 import { Page } from '@/lib/utils/pageTypes'
 import Hero from '@/components/Hero'
 
-// Define the expected data structure (optional, for clarity or TypeScript)
-
 interface GraphQLResponse {
 	Pages: {
 		docs: Page[]
@@ -13,7 +11,6 @@ interface GraphQLResponse {
 }
 
 export default async function Home() {
-	// Ensure NEXT_PUBLIC_BASE_URL is defined
 	if (!process.env.NEXT_PUBLIC_BASE_URL) {
 		console.error('NEXT_PUBLIC_BASE_URL is not defined')
 		return (
@@ -33,16 +30,11 @@ export default async function Home() {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
-					// Uncomment if authentication is needed:
 					// 'Authorization': `Bearer ${process.env.API_TOKEN}`,
 				},
 				body: JSON.stringify({
 					query: PAGE_QUERY,
 				}),
-				// Optional: Disable caching for fresh data
-				// cache: 'no-store',
-				// Or use revalidation for ISR
-				// next: { revalidate: 60 }, // Revalidate every 60 seconds
 			}
 		)
 
@@ -66,29 +58,29 @@ export default async function Home() {
 			</div>
 		)
 	}
-	//const page = data?.Pages.docs.find((page) => page.slug === 'home')
 
-	//{/* <Hero key={index} layout={layout} /> */}
-	// Render the fetched data
+	// Try to find the home page
+	const page = data?.Pages.docs.find((p) => p.slug === 'home')
+
+	if (!page || !page.layout) {
+		return (
+			<div>
+				<h1>404</h1>
+				<p>Page not found</p>
+			</div>
+		)
+	}
+
 	return (
 		<div>
-			{data?.Pages.docs.find((page) => page.slug === '') ? (
-				<div>
-					{data?.Pages.docs
-						.find((page) => page.slug === '')
-						?.layout?.map(
-							(layout, index) =>
-								layout.__typename === 'PageHero' && (
-									<Hero key={index} layout={layout} />
-								)
-						)}
-				</div>
-			) : (
-				<div>
-					<h1>404</h1>
-					<p>Page not found</p>
-				</div>
-			)}
+			{page.layout.map((block, index) => {
+				if (block.__typename === 'PageHero') {
+					return <Hero key={index} layout={block} />
+				}
+
+				// Add more block types here as needed
+				return null
+			})}
 		</div>
 	)
 }

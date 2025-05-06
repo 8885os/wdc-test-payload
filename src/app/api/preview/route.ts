@@ -9,7 +9,7 @@ export async function GET(request: Request) {
 	;(await draftMode()).enable()
 
 	const redirectUrl = new URL(
-		`${collection === 'pages' ? '' : `/${collection}`}/${slug}`,
+		`${collection === 'pages' ? `/${slug === 'home' ? '' : `/${slug}`}` : `/${collection}`}/${slug}`,
 		request.url
 	)
 
