@@ -4,8 +4,6 @@ import Link from 'next/link'
 import React from 'react'
 
 const Sidebar = ({ ...data }: SidebarType) => {
-	console.log(data)
-
 	return (
 		<div className='z-50 bg-white flex-col flex justify-around h-[100vh] mt-0 fixed top-0 left-0 bottom-0'>
 			<nav className='bg-white flex-col flex-1 justify-between self-stretch items-center w-16 mt-0 mb-0 pt-4 pb-5 flex'>
