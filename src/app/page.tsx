@@ -59,8 +59,6 @@ export default async function Home() {
 			</div>
 		)
 	}
-
-	// Try to find the home page
 	const page = data?.Pages.docs.find((p) => p.slug === 'home')
 
 	if (!page || !page.layout) {
