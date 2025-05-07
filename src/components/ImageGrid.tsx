@@ -1,11 +1,12 @@
 import React from 'react'
 import Image from 'next/image'
+import { extractFilenameFromUrl } from '@/lib/utils/converters/imageUrl'
 
 type ImageType = {
 	image: { url: string; alt: string }
 }
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
+const BASE_URL = process.env.NEXT_PUBLIC_IMAGE_URL
 
 export default function ImageGrid({ images }: { images: ImageType[] }) {
 	return (
@@ -13,7 +14,7 @@ export default function ImageGrid({ images }: { images: ImageType[] }) {
 			{/* Top-left image */}
 			<div className='relative w-full h-full item-1'>
 				<Image
-					src={BASE_URL + images[1].image.url}
+					src={`${BASE_URL}/${extractFilenameFromUrl(images[1].image.url)}`}
 					alt={images[1].image.alt}
 					fill
 					className='object-cover'
@@ -23,7 +24,7 @@ export default function ImageGrid({ images }: { images: ImageType[] }) {
 			{/* Bottom-left image */}
 			<div className='relative w-full h-full item-2'>
 				<Image
-					src={BASE_URL + images[2].image.url}
+					src={`${BASE_URL}/${extractFilenameFromUrl(images[2].image.url)}`}
 					alt={images[2].image.alt}
 					fill
 					className='object-cover'
@@ -32,8 +33,9 @@ export default function ImageGrid({ images }: { images: ImageType[] }) {
 
 			{/* Right image spanning 2 rows */}
 			<div className='relative w-full h-full item-3'>
+				<>{console.log(images[0].image.url)}</>
 				<Image
-					src={BASE_URL + images[0].image.url}
+					src={`${BASE_URL}/${extractFilenameFromUrl(images[0].image.url)}`}
 					alt={images[0].image.alt}
 					fill
 					className='object-cover'

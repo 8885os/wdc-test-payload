@@ -1,11 +1,12 @@
 'use client'
+import { extractFilenameFromUrl } from '@/lib/utils/converters/imageUrl'
 import { HeroTypes } from '@/lib/utils/pageTypes'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React from 'react'
 
 export default function Hero({ layout }: { layout: HeroTypes }) {
-	const url = process.env.NEXT_PUBLIC_BASE_URL
+	const url = process.env.NEXT_PUBLIC_IMAGE_URL
 
 	const router = useRouter()
 
@@ -17,7 +18,7 @@ export default function Hero({ layout }: { layout: HeroTypes }) {
 			<Image
 				priority
 				className='mt-8 absolute animate-[var(--animate-background)] w-full object-cover'
-				src={`${url}${image}`}
+				src={`${url}/${extractFilenameFromUrl(image)}`}
 				alt={imagealt}
 				fill
 			/>

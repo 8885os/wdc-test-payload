@@ -28,6 +28,8 @@ export default async function RootLayout({
 	}
 
 	try {
+		console.log(`${process.env.NEXT_PUBLIC_BASE_URL}/api/graphql`, 'HERE')
+
 		const response = await fetch(
 			`${process.env.NEXT_PUBLIC_BASE_URL}/api/graphql`,
 			{
@@ -61,10 +63,14 @@ export default async function RootLayout({
 	} catch (error) {
 		console.error('Error fetching GraphQL data:', error)
 		return (
-			<div>
-				<h1>Error</h1>
-				<p>Failed to load pages. Please try again later.</p>
-			</div>
+			<html lang='en'>
+				<body className={`${inter.className} antialiased`}>
+					<div>
+						<h1>Error</h1>
+						<p>Failed to load pages. Please try again later.</p>
+					</div>
+				</body>
+			</html>
 		)
 	}
 

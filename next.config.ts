@@ -26,7 +26,17 @@ const nextConfig: NextConfig = {
 			},
 			{
 				protocol: 'https',
-				hostname: 'payload-cms-dun.vercel.app',
+				hostname: 'sea-turtle-app-4dk5h.ondigitalocean.app',
+				pathname: '/**',
+			},
+			{
+				protocol: 'https',
+				hostname: 'wixcrbqfoxbnk3ak.public.blob.vercel-storage.com',
+				pathname: '/**',
+			},
+			{
+				protocol: 'http',
+				hostname: 'wixcrbqfoxbnk3ak.public.blob.vercel-storage.com',
 				pathname: '/**',
 			},
 		],

@@ -1,9 +1,9 @@
 import { notFound } from 'next/navigation'
-import React, { Fragment } from 'react'
+import React from 'react'
 import { draftMode } from 'next/headers'
 import ImageHero from '@/components/ImageHero'
 import ImageGrid from '@/components/ImageGrid'
-import { RefreshRouteOnSave } from '@/components/RefreshRouteOnSave'
+//import { RefreshRouteOnSave } from '@/components/RefreshRouteOnSave'
 import { WORK_QUERY } from '@/lib/utils/queries'
 import { Richtext } from '@/components/Richtext'
 
@@ -38,10 +38,7 @@ function renderBlock(block: any, index: number) {
 			return (
 				<section key={`${block.__typename}-${index}`} className='w-full'>
 					<div className='ml-auto w-[60%] mt-10 mb-10'>
-						<Richtext
-							data={block.content}
-							internalDocToHref={block.internalDocToHref}
-						/>
+						<Richtext data={block.content} />
 					</div>
 				</section>
 			)
@@ -107,12 +104,7 @@ export default async function CMSPage({
 		return notFound()
 	}
 
-	return (
-		<Fragment>
-			<RefreshRouteOnSave />
-			<div>{content.map((block, index) => renderBlock(block, index))}</div>
-		</Fragment>
-	)
+	return <div>{content.map((block, index) => renderBlock(block, index))}</div>
 }
 
 /* export async function generateStaticParams() {

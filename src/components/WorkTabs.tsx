@@ -1,4 +1,5 @@
 'use client'
+import { extractFilenameFromUrl } from '@/lib/utils/converters/imageUrl'
 import Image from 'next/image'
 import React from 'react'
 
@@ -62,7 +63,7 @@ export default function WorkTabs({ works }: { works: any[] }) {
 								{heroImage && (
 									<Image
 										className='absolute inset-0 z-0 object-cover'
-										src={`${process.env.NEXT_PUBLIC_BASE_URL}${heroImage.url}`}
+										src={`${process.env.NEXT_PUBLIC_IMAGE_URL}/${extractFilenameFromUrl(heroImage.url)}`}
 										alt={heroImage.alt}
 										fill
 									/>
